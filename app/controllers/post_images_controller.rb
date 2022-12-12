@@ -16,9 +16,22 @@ class PostImagesController < ApplicationController
   end
 
   def index
+    # @post_imagesにはpost_imagesテーブル内に存在する全てのレコードのインスタンスを代入
+    @post_images = PostImage.all
   end
 
   def show
+    # @post_imageには特定のidのPostImageモデルを格納
+    @post_image = PostImage.find(params[:id])
+  end
+
+  def destroy
+    # 削除するPostImageのレコードを取得
+    @poat_image = PostImage.find(params[:id])
+    # 削除
+    @post_image.destroy
+    # リダイレクト先は一覧画面へ
+    redirect_to post_images_path
   end
 
   private

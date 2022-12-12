@@ -1,0 +1,32 @@
+<!-- ユーザーの詳細 -->
+<div>
+  <h3><%= @user.name %></h3>
+  <%= image_tag @user.get_profile_image(100,100) %>
+</div>
+
+<!-- ユーザーの投稿一覧 -->
+
+<% @post_images.each do |post_image| %>
+<div>
+  <%= link_to post_image_path(post_image.id) do %>
+    <%= image_tag post_image.get_image %>
+  <% end %>
+  <p>投稿ユーザー画像：<%= image_tag post_image.user.get_profile_image(100,100) %></p>
+  <p>ショップ名：<%= post_image.shop_name %></p>
+  <p>説明：<%= post_image.caption %></p>
+  <p>ユーザーネーム：<%= post_image.user.name %></p>
+</div>
+<% end %>
+
+<!-- @post_image.userという書き方をしたのを思い出してみましょう。
+この場合、特定の投稿画像(@post_image)に紐づいたユーザーの情報を取得するために使いました。
+投稿画像に対して決まるユーザーは1人だけなので、ここで取得できるデータはユーザー1人分です。
+
+一方で、@user.post_imagesの場合は、ユーザーが投稿した投稿画像を全て取得します。
+したがって、データが投稿画像の数だけ、複数存在するという形になります。
+言い換えると、取得できるデータは投稿画像データN個(投稿している数だけ)分となります。
+
+@user.post_imagesに格納されているデータは複数あるため
+@post_images.user.id,@post_images.user.nameのように
+関連づけられているモデルのカラムを操作することはできません。
+each文を使用して、一つずつデータを確認した上で、カラムを操作する必要があります。-->
